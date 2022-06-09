@@ -84,7 +84,7 @@ def get_sentence_scores(
     return sentence_scores
 
 
-def summarize_text(text: str, n: int = 5) -> str:
+def summarize_text(text: str, n_sentences: int = 5) -> str:
     """
     Summarize the text.
 
@@ -105,6 +105,8 @@ def summarize_text(text: str, n: int = 5) -> str:
     sentences: list[str] = sentence_tokenize(text)
     sentence_scores = get_sentence_scores(sentences, term_frequencies)
 
-    summary_sentences = nlargest(n, sentence_scores, key=lambda k: sentence_scores[k])
+    summary_sentences = nlargest(
+        n_sentences, sentence_scores, key=lambda k: sentence_scores[k]
+    )
 
     return " ".join(summary_sentences)

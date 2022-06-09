@@ -50,7 +50,7 @@ def test_get_sentence_scores():
 
 
 def test_summarize_text():
-    output_text = summarize_text(input_text, n=2)
+    output_text = summarize_text(text=input_text, n_sentences=2)
     assert output_text == (
         "Testing is a good idea and always important part of software development. "
         "Testing ensures that the software is working correctly."

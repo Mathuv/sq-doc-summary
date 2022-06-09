@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine
+from .nlp import summarize_text
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -38,3 +39,14 @@ def read_document(document_id: int, db: Session = Depends(get_db)):
     if db_document is None:
         raise HTTPException(status_code=404, detail="Document not found")
     return db_document
+
+
+@app.get("/documents/{document_id}/summary/", response_model=schemas.DocumentSummary)
+def get_document_summary(document_id: int, db: Session = Depends(get_db)):
+    db_document = crud.get_document(db=db, document_id=document_id)
+    if db_document is None:
+        raise HTTPException(status_code=404, detail="Document not found")
+    summary = summarize_text(text=db_document.text, n_sentences=3)
+    return schemas.DocumentSummary(
+        id=db_document.id, text=db_document.text, summary=summary
+    )
