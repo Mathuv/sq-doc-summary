@@ -1,9 +1,13 @@
+import os
+
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine
 from .nlp import summarize_text
+
+N_SUMMARY_SENTENCES = int(os.getenv("N_SUMMARY_SENTENCES", 3))
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -46,7 +50,7 @@ def get_document_summary(document_id: int, db: Session = Depends(get_db)):
     db_document = crud.get_document(db=db, document_id=document_id)
     if db_document is None:
         raise HTTPException(status_code=404, detail="Document not found")
-    summary = summarize_text(text=db_document.text, n_sentences=3)
+    summary = summarize_text(text=db_document.text, n_sentences=N_SUMMARY_SENTENCES)
     return schemas.DocumentSummary(
         id=db_document.id, text=db_document.text, summary=summary
     )
