@@ -1,0 +1,35 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Common File
+[*]
+charset=utf-8
+end_of_line=lf
+indent_style=space
+indent_size=4
+insert_final_newline=true
+trim_trailing_whitespace = true
+
+# Web Files
+[*.{htm,html,js,ts,tsx,css,sass,scss,less,svg,vue}]
+indent_style=tab
+tab_width=4
+
+# YAML Files
+[{*.yml,*.yaml}]
+indent_size=2
+
+# JSON Files
+[*.{json,json5}]
+indent_size = 2
+
+# Markdown Files
+[*.md]
+trim_trailing_whitespace = false
+
+# Makefile
+[Makefile]
+indent_style=tab
+tab_width=4

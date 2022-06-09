@@ -1,0 +1,42 @@
+[tool.isort]
+# Line length of import statements can be shorter(PEP8) than rest of the code.
+line_length = 79
+include_trailing_comma = true
+multi_line_output = 3
+sections = 'FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER'
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
+python_classes = ["Test", "Acceptance"]
+python_functions = ["test"]
+testpaths = [
+    "tests",
+    "test",
+    "integration",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.env
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | foo.py           # also separately exclude a file named foo.py in
+                     # the root of the project
+)
+'''
