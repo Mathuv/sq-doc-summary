@@ -4,10 +4,13 @@ WORKDIR /code
 
 COPY ./requirements.txt /code/requirements.txt
 
+# Install required python packages
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-COPY ./app /code/app
+# Download the required NLTK data
+RUN [ "python", "-c", "import nltk; nltk.download('stopwords')" ]
+RUN [ "python", "-c", "import nltk; nltk.download('punkt')" ]
 
-# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+COPY ./app /code/app
 
 EXPOSE 8080
