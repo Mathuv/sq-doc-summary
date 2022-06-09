@@ -21,3 +21,12 @@ stop-dev:
 logs-dev:
 	# Watch container logs
 	docker-compose logs -f
+
+test-local:
+	# Run tests locally
+	pytest -v
+
+test:
+	# Run tests on the Docker image
+	docker-compose run --rm app pytest -v
+	docker-compose down
