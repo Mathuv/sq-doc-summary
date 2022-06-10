@@ -79,18 +79,16 @@ Interactive API documentation for the REST API can be accessed under
     make stop-dev
     ```
 
-- To run the tests in docker environment:
+- To run the (unit and integration)tests in docker environment:
   
     ```sh
     make test
     ```
 
-## Running the unit and integration tests
+## Running the unit and integration tests locally(outside of docker container)
 
-- Create .env_test using .env_test.sample as a reference.
-
-    Make sure POSTGRES_SERVER is set to the correct value.
-
+- Create .env_test using .env.sample as a reference.
+- Update the value of POSTGRES_SERVER with correct postgres server value.
 - Set the environment variables with the following terminal command
 
     ```sh
@@ -103,7 +101,7 @@ Interactive API documentation for the REST API can be accessed under
     make test-local
     ```
 
-## Steps involved in extracting the summary
+## Steps involved in extracting the text summary
 
 Python NLP library NLTK is used to extract the summary.
 
@@ -121,6 +119,7 @@ Deep learning libraries could be used to generate the summary to improve the per
 
 - Works only with English text.
 - Currently supports only plain text documents
+- Has not been tested on large documents.
 
 ## Future plans
 
@@ -129,6 +128,7 @@ To make the codebase production ready.
 - [ ] Add support for other languages.
 - [ ] Test the API with real data.
 - [ ] Test the API with large text.
+- [ ] Handle extraction of summary for very large text with background task.
 - [ ] Incorporate Deep Learning based text summarization to improve the performance.
 - [ ] Add support for other document types (e.g. PDF, Word, etc.)
 - [ ] Add support for other document formats (e.g. JSON, XML, etc.)
