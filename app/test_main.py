@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from fastapi.testclient import TestClient
 
 from app.main import app
