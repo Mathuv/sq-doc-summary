@@ -1,4 +1,4 @@
-from .nlp import (
+from app.nlp import (
     get_sentence_scores,
     get_term_frequencies,
     preprocess_text,
