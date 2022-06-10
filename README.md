@@ -2,26 +2,64 @@
 
 REST APIs for storing and getting a summary of a large text.
 
-## APIs Summary
+## Interactive API Documentation
+
+Interactive API documentation for the REST API can be accessed under
+
+- [/docs] - for Swagger UI
+
+    Eg. <http://localhost:8080/docs>
+
+- [/redoc] - for Redoc
+
+    Eg. <http://localhost:8080/redoc>
+
+## API Endpoints
 
 1. [POST /documents/]
+     API to create a new document.
 
-TBA
+     Eg:
 
-2.[GET /documents/{id}/]
+     ```sh
+    curl -X POST -H "Content-Type: application/json" -d '{"text":"Hello World"}' http://localhost:8080/documents/
+    ```
 
-TBA
+2. [GET /documents/{id}/]
 
-3.[GET /documents/{id}/summary/]
+    API to retrieve a document.
 
-TBA
+    Eg:
 
-4.[GET /documents/]
+    ```sh
+    curl -X GET http://localhost:8080/documents/1/
+    ```
+
+3. [GET /documents/{id}/summary/]
+
+    API to retrieve(generate) a summary of a document.
+
+    Eg:
+
+    ```sh
+    curl -X GET http://localhost:8080/documents/1/summary/
+    ```
+
+4. [GET /documents/]
+
+    API to retrieve all documents.
+
+    Eg:
+
+    ```sh
+    curl -X GET http://localhost:8080/documents/
+    ```
 
 ## Local development
 
-- Clone the repo and ```cd``` into the directory.
-- Create .env using .env.sample as a reference.
+- Clone the repo and ```cd``` into the root directory.
+
+- Create `.env` file using `.env.sample` as a reference.
 
 - To run the API server:
 
@@ -65,7 +103,41 @@ TBA
     make test-local
     ```
 
+## Steps involved in extracting the summary
+
+Python NLP library NLTK is used to extract the summary.
+
+The steps involved (under `app/nlp.py`) in extracting the summary are:
+
+- Preprocessing the text.
+- Tokenization of the text into sentences.
+- Generate term frequency(weighted) matrix.
+- Generate sentence score matrix.
+- Get top n sentences and generate the summary.
+
+Deep learning libraries could be used to generate the summary to improve the performance of text summarization.
+
 ## Limitations
 
 - Works only with English text.
 - Currently supports only plain text documents
+
+## Future plans
+
+To make the codebase production ready.
+
+- [ ] Add support for other languages.
+- [ ] Test the API with real data.
+- [ ] Test the API with large text.
+- [ ] Incorporate Deep Learning based text summarization to improve the performance.
+- [ ] Add support for other document types (e.g. PDF, Word, etc.)
+- [ ] Add support for other document formats (e.g. JSON, XML, etc.)
+- [ ] Add support for other document storage (e.g. S3, GCS, etc.)
+- [ ] Provide simple GUI interface for uploading and getting the summary of the document.
+- [ ] Add docker configuration for production (security, concurrency, db volume, application/web servers etc.)
+
+## References
+
+- [1] <https://www.nltk.org/>
+- [2] <https://fastapi.tiangolo.com/tutorial/>
+- [3] <https://github.com/Mathuv/PPSPM-TextMM>
